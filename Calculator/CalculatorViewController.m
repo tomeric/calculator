@@ -17,6 +17,7 @@
 @implementation CalculatorViewController
 
 @synthesize display = _display;
+@synthesize periodButton = _periodButton;
 @synthesize userIsInTheMiddleOfEnteringANumber = _userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
 
@@ -33,9 +34,15 @@
     
     if (self.userIsInTheMiddleOfEnteringANumber) {
         self.display.text = [self.display.text stringByAppendingString:digit];
+        
+        // If the digit pressed is a period, disable that button
+        if ([@"." isEqualToString:digit]) {
+            self.periodButton.enabled = NO;
+        }
     } else {
         self.display.text = digit;
         self.userIsInTheMiddleOfEnteringANumber = YES;
+        self.periodButton.enabled = YES;
     }
 }
 
@@ -53,6 +60,7 @@
     [self.brain pushOperand:[self.display.text doubleValue]];
     
     self.userIsInTheMiddleOfEnteringANumber = NO;
+    self.periodButton.enabled = NO;
 }
 
 @end
