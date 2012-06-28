@@ -25,6 +25,10 @@
     return _operandStack;
 }
 
+- (void)clear {
+    [self.operandStack removeAllObjects];
+}
+
 - (void)pushOperand:(double)operand {
     [self.operandStack addObject:[NSNumber numberWithDouble:operand]];
 }
