@@ -17,6 +17,7 @@
 @implementation CalculatorViewController
 
 @synthesize display = _display;
+@synthesize history = _history;
 @synthesize periodButton = _periodButton;
 @synthesize userIsInTheMiddleOfEnteringANumber = _userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
@@ -49,6 +50,7 @@
 - (IBAction)clearPressed {
     [self.brain clear];
     self.display.text = @"0";
+    self.history.text = @"";
     self.userIsInTheMiddleOfEnteringANumber = NO;
     self.periodButton.enabled = NO;
 }
@@ -58,12 +60,16 @@
         [self enterPressed];
     }
     
+    self.history.text = [self.history.text stringByAppendingFormat:@" %@", sender.currentTitle];
+    
     double result = [self.brain performOperation:sender.currentTitle];
     NSString *resultString = [NSString stringWithFormat:@"%g", result];
     self.display.text = resultString;
 }
 
 - (IBAction)enterPressed {
+    self.history.text = [self.history.text stringByAppendingFormat:@" %@", self.display.text];
+    
     [self.brain pushOperand:[self.display.text doubleValue]];
     
     self.userIsInTheMiddleOfEnteringANumber = NO;
