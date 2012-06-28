@@ -56,6 +56,16 @@
     } else if ([@"/" isEqualToString:operation]) {
         double divider = [self popOperand];
         result = [self popOperand] / divider;
+    } else if ([@"π" isEqualToString:operation]) {
+        result = M_PI;
+    } else if ([@"sin" isEqualToString:operation]) {
+        result = sin([self popOperand]);
+    } else if ([@"cos" isEqualToString:operation]) {
+        result = cos([self popOperand]);
+    } else if ([@"tan" isEqualToString:operation]) {
+        result = tan([self popOperand]);
+    } else if ([@"sqrt" isEqualToString:operation]) {
+        result = sqrt([self popOperand]);
     }
     
     [self pushOperand:result];
