@@ -55,6 +55,17 @@
     self.periodButton.enabled = NO;
 }
 
+- (IBAction)backspacePressed {
+    if (self.userIsInTheMiddleOfEnteringANumber) {
+        if ([self.display.text length] == 1) {
+            self.display.text = @"0";
+            self.userIsInTheMiddleOfEnteringANumber = NO;
+        } else {
+            self.display.text = [self.display.text substringToIndex:[self.display.text length] - 1];
+        }
+    }
+}
+
 - (IBAction)operationPressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) {
         [self enterPressed];
