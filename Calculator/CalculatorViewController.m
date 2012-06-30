@@ -74,14 +74,17 @@
     self.history.text = [self.history.text stringByAppendingFormat:@" %@", sender.currentTitle];
     
     double result = [self.brain performOperation:sender.currentTitle];
-    NSString *resultString = [NSString stringWithFormat:@"%g", result];
+    NSString *resultString = [NSString stringWithFormat:@"%g =", result];
     self.display.text = resultString;
 }
 
 - (IBAction)enterPressed {
-    self.history.text = [self.history.text stringByAppendingFormat:@" %@", self.display.text];
+    double value = [self.display.text doubleValue];
     
-    [self.brain pushOperand:[self.display.text doubleValue]];
+    [self.brain pushOperand:value];
+    
+    self.history.text = [self.history.text stringByAppendingFormat:@" %g", value];
+    self.display.text = [NSString stringWithFormat:@"%g", value];
     
     self.userIsInTheMiddleOfEnteringANumber = NO;
     self.periodButton.enabled = NO;
